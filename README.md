@@ -1,2 +1,2 @@
-# Desarollo-de-Aplicaciones-M-viles
-Desarollo de Aplicaciones Móviles Septiembre-Diciembre 2026
+# Google-Maps-Jetpack-Compose
+A school project using Google Maps with Kotlin and Jetpack Compose.    Public
