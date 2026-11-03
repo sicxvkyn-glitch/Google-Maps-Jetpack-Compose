@@ -1,0 +1,118 @@
+package com.example.columnmyapplication
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.columnmyapplication.ui.theme.ColumnMyApplicationTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        setContent {
+            ColumnMyApplicationTheme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    App(
+                        modifier = Modifier.padding(paddingValues = innerPadding)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun App(modifier: Modifier = Modifier) {
+    // Estado reactivo con rememberSaveable para persistir ante rotación de pantalla
+    var counter by rememberSaveable { mutableIntStateOf(value = 0) }
+
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color.Red)
+    ) {
+        item {
+            // Imagen principal del perfil
+            Image(
+                painter = painterResource(id = R.drawable.hola),
+                contentDescription = "Imagen principal",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(400.dp)
+                    .padding(all = 8.dp)
+            )
+
+            // Fila (Row) con ícono de like y contador
+            Row(
+                modifier = Modifier.padding(top = 8.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_favorite),
+                    contentDescription = "like",
+                    modifier = Modifier.clickable {
+                        counter++
+                    }
+                )
+
+                Text(
+                    text = counter.toString(),
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+            }
+
+            // Nombre del usuario
+            Text(
+                text = "Viky Naomi :)",
+                color = Color.White,
+                fontSize = 32.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            )
+
+            // Texto adicional
+            Text(
+                text = "Suscribete",
+                color = Color.White,
+                textAlign = TextAlign.Justify,
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
+
+            Text(
+                text = "Hola",
+                color = Color.White,
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
+
+            Text(
+                text = "Java",
+                color = Color.White,
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
+        }
+    }
+}
